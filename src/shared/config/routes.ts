@@ -9,4 +9,7 @@ export const ROUTES = {
   CONTACTS: '/contacts',
 } as const
 
+/** «Цены» в шапке ведут на секцию тарифов главной: <section id="tariffs"> */
+export const TARIFFS_ANCHOR = '/#tariffs'
+
 export const getArticleRoute = (slug: string) => `/blog/${slug}`

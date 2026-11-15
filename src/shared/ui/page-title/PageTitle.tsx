@@ -1,10 +1,16 @@
 import type { HTMLAttributes } from 'react'
 import { cn } from '@/shared/lib'
 
-/** Заголовок страницы (h1). Размеры — уточнить по макету. */
+/**
+ * Заголовок страницы (h1). Текстовые стили из Figma:
+ * desktop_h1 — IBM Plex Serif 500, 40/42; tablet_h1 — 34/48.
+ */
 export const PageTitle = ({ className, ...props }: HTMLAttributes<HTMLHeadingElement>) => (
   <h1
-    className={cn('mt-4 text-3xl font-bold text-dark md:text-4xl xl:text-5xl', className)}
+    className={cn(
+      'mt-4 font-serif text-[28px] leading-tight font-medium md:text-[34px] md:leading-[48px] xl:text-[40px] xl:leading-[42px]',
+      className,
+    )}
     {...props}
   />
 )

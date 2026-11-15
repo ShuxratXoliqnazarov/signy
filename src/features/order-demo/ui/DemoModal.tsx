@@ -33,7 +33,7 @@ export const DemoModal = ({ onClose }: DemoModalProps) => {
           ×
         </button>
         <h2 className="text-2xl font-bold text-dark">Заказать демо</h2>
-        <p className="mt-2 text-muted">DemoModal — заглушка</p>
+        <p className="mt-2 text-gray">DemoModal — заглушка</p>
       </div>
     </div>
   )

@@ -16,7 +16,7 @@ export const Breadcrumbs = ({ items }: BreadcrumbsProps) => {
   const all: BreadcrumbItem[] = [{ label: 'Главная', to: ROUTES.HOME }, ...items]
 
   return (
-    <nav aria-label="Хлебные крошки" className="text-sm text-muted">
+    <nav aria-label="Хлебные крошки" className="text-sm text-gray">
       {all.map((item, i) => (
         <Fragment key={item.label}>
           {i > 0 && <span className="mx-2">/</span>}

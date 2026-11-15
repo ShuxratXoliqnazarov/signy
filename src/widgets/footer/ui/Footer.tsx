@@ -1,12 +1,12 @@
 import { Placeholder } from '@/shared/ui/placeholder'
 
 /**
- * Тёмно-синий футер: логотип, копирайт, колонки ссылок, контакты, соцсети
+ * Футер #061224: логотип, копирайт, ссылки (FOOTER_LINKS), контакты (CONTACTS)
  * TODO: сверстать по макету (desktop / tablet / mobile).
  */
 export const Footer = () => (
   <Placeholder
     name="Footer"
-    description="Тёмно-синий футер: логотип, копирайт, колонки ссылок, контакты, соцсети"
+    description="Футер #061224: логотип, копирайт, ссылки (FOOTER_LINKS), контакты (CONTACTS)"
   />
 )

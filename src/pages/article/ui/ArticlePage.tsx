@@ -17,7 +17,7 @@ export const ArticlePage = () => {
       <Container className="py-10">
         <Breadcrumbs items={[{ label: 'Блог', to: ROUTES.BLOG }, { label: 'Статья' }]} />
         <PageTitle>Статья блога</PageTitle>
-        <p className="mt-2 text-sm text-muted">slug: {slug} · дата · категория · время чтения</p>
+        <p className="mt-2 text-sm text-gray">slug: {slug} · дата · категория · время чтения</p>
         <ArticleContent />
         <ShareArticle />
         <ArticleNavigation />
