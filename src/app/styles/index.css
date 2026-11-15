@@ -1,0 +1,37 @@
+@import 'tailwindcss';
+
+/*
+ * Дизайн-токены Signy. Значения цветов — "уточнить" по макету Figma.
+ * Использование: bg-primary, text-dark, bg-mint, bg-sky и т.д.
+ */
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary: #1a6dff;
+  --color-primary-hover: #0f5ae0;
+  --color-primary-active: #0b4bbd;
+  --color-sky: #e6f0ff; /* светло-голубой: hero, карточки тарифов, вопросы */
+  --color-mint: #ddf2f1; /* светло-мятный: фоны секций, подписка */
+  --color-dark: #0d1726; /* футер, заголовки */
+  --color-text: #1b2533;
+  --color-muted: #6b7686; /* вторичный текст, хлебные крошки */
+  --color-border: #e3e8ef;
+  --color-danger: #e5484d;
+
+  --radius-btn: 12px;
+  --radius-card: 16px;
+
+  --breakpoint-sm: 375px;
+  --breakpoint-md: 768px; /* планшет */
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1440px; /* десктоп */
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white font-sans text-text antialiased;
+  }
+}
