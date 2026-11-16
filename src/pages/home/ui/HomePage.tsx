@@ -9,7 +9,7 @@ import { SubscribeSection } from '@/widgets/subscribe-section'
 import { TariffsSection } from '@/widgets/tariffs-section'
 import { VideoSection } from '@/widgets/video-section'
 
-/** Страница «Главная» — собирается из виджетов в порядке макета. */
+/** Страница «Главная» — собирается из виджетов в порядке макета (maine_sl_1). */
 export const HomePage = () => (
   <>
     <HeroSlider />
@@ -18,9 +18,9 @@ export const HomePage = () => (
     <TariffsSection />
     <DocumentsCounter />
     <PartnersSlider />
-    <ArticlesSection />
+    <ArticlesSection variant="home" />
     <VideoSection />
     <PopularQuestions />
-    <SubscribeSection />
+    <SubscribeSection bg="white" />
   </>
 )

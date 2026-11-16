@@ -42,6 +42,8 @@ export const CONTACTS = {
   phones: ['0 800 750 643', '+380 44 334 56 43', '+380 44 338 86 43'],
   email: 'infosmartsign@smarttender.biz',
   address: 'пр-т Миколи Бажана, 14 А, Київ, 02072',
+  /** Адрес в две строки, как в футере */
+  addressLines: ['пр-т Миколи Бажана, 14 А', 'Київ, 02072'],
   facebook: 'https://facebook.com', // точная ссылка в макете не указана
 } as const
 
@@ -53,3 +55,6 @@ export const LANGUAGES = [
 
 /** Ссылка tel: из номера в любом формате */
 export const toTelHref = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`
+
+/** Видео для «Познакомимся в живую?» и страницы видеоинструкций — заменить на реальное */
+export const DEMO_VIDEO_URL = 'https://www.youtube.com/embed/aqz-KE-bpKQ'

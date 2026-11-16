@@ -43,27 +43,28 @@ src/
 │   ├── home/  blog/  article/  videos/  faq/  about/  contacts/  not-found/
 │
 ├── widgets/              # крупные самостоятельные блоки страниц (секции)
-│   ├── header/ footer/ mobile-menu/ subscribe-section/ attention-notice/
+│   ├── header/ (Header + MobileMenu + NavDropdown)  footer/  subscribe-section/  attention-notice/
 │   ├── hero-slider/ advantages/ product-showcase/ tariffs-section/ documents-counter/
 │   ├── partners-slider/ articles-section/ video-section/ popular-questions/
 │   ├── blog-articles/ seo-text/ article-content/ article-navigation/
 │   └── videos-grid/ faq-list/ about-content/ contacts-info/ contacts-map/
 │
 ├── features/             # действия пользователя (формы, переключатели)
-│   ├── order-demo/         # поп-ап «Заказать демо» (+ useDemoModal)
-│   ├── subscribe/  contact-form/  ask-question/
-│   ├── language-switcher/  filter-articles/  share-article/
+│   ├── order-demo/         # поп-ап «Демо версия» + «Готово» (useDemoModal)
+│   ├── contact-form/       # форма Контактов и FAQ (имя, e-mail, телефон с маской, сообщение)
+│   ├── subscribe/  language-switcher/  share-article/
 │
-├── entities/             # бизнес-сущности: типы + карточки
-│   ├── article/ (ArticleCard, ArticleCardLarge)   video/ (VideoCard)
-│   ├── tariff/ (TariffCard)   faq/ (FaqItem)   partner/ (PartnerLogo)
+├── entities/             # бизнес-сущности: типы, моки данных, карточки
+│   ├── article/ (ArticleCard, ArticleCardLarge, ARTICLES)   video/ (VideoCard, VIDEOS)
+│   ├── tariff/ (TariffCard, TARIFFS)   faq/ (FAQ_GROUPS)   partner/ (PARTNERS)
 │
 └── shared/               # переиспользуемое, ничего не знает о бизнесе
-    ├── config/   # ROUTES, NAV_ITEMS, CONTACTS
-    ├── lib/      # cn(), общие zod-схемы (email, phone)
-    ├── ui/       # UI-kit: Button, Container, Section, Breadcrumbs, PageTitle,
-    │             #         Input, Textarea, Modal, Accordion, Tabs, Pagination, PlayButton
-    └── assets/   # картинки и иконки из Figma
+    ├── config/   # ROUTES, NAV_ITEMS, CONTACTS, LANGUAGES
+    ├── lib/      # cn(), formatPhone() — маска, общие zod-схемы (email, phone)
+    ├── ui/       # UI-kit: Button, Input, Textarea, Modal, SuccessModal, VideoModal, Accordion,
+    │             #   Tabs, Pagination, PlayButton, Tag, Logo, icons, Container, Section,
+    │             #   SectionTitle, PageTitle, Breadcrumbs
+    └── assets/images/   # фото, логотипы партнёров, иллюстрации — вырезаны из фреймов Figma
 ```
 
 ### Устройство слайса
@@ -88,13 +89,20 @@ import { Header } from '../../widgets/header'        // ❌
 
 ---
 
-## Заглушки
+## Статус
 
-Все блоки уже созданы и подключены на страницы, но пока показывают `<Placeholder />` (пунктирная рамка с названием).
-**Ваша задача** — открыть файл своего блока и заменить `<Placeholder />` на вёрстку по макету.
-Страницы и роутинг трогать не нужно — блок сразу появится на своём месте.
+Все страницы свёрстаны по макету (десктоп 1440 / планшет 768 / мобильный 320) и проверены в браузере: горизонтального скролла нет ни на одной ширине.
 
-Уже работают: роутинг всех страниц, временная шапка с навигацией, базовые `Button`, `Container`, `Section`, `Breadcrumbs`, `PageTitle`, `Input`, `Textarea`, открытие/закрытие поп-апа демо.
+Работает весь интерактив из ТЗ:
+- hero-слайдер (3 слайда, точки, свайп, автопрокрутка) и слайдер партнёров (на мобильной 2×2);
+- выпадающие меню в шапке (телефоны, «Про нас»), переключатель языка, бургер-меню с раскрывающимися пунктами;
+- поп-ап «Демо версия» → «Готово» (открывается из шапки, hero, тарифов, мобильного меню; закрывается крестиком, Esc, кликом по фону);
+- формы с zod-валидацией и маской телефона `+38 0XX XXX XX XX`: демо, контакты, FAQ («Спасибо» после отправки), подписка («Отлично!»);
+- фильтр статей по вкладкам (на мобильной — список) и пагинация в блоге; SEO-текст «Развернуть / Свернуть»;
+- аккордеоны FAQ, видео по клику на Play (модалка с YouTube), анимированный счётчик документов, кнопки «Поделиться»;
+- уведомление «Внимание!» (cookie) при первом визите, кнопка «наверх» в футере на планшете и мобильной.
+
+**Заглушки, которые надо заменить на реальные данные:** тексты статей/FAQ (моки в `entities/*/model/mock.ts`), ссылка на видео (`DEMO_VIDEO_URL` в `shared/config/site.ts`), ссылка на Facebook, отправка форм (сейчас `console.info` — места помечены `TODO`).
 
 ---
 
@@ -156,63 +164,31 @@ import { Header } from '../../widgets/header'        // ❌
 
 ---
 
-## Распределение задач
+## Где что лежит
 
-Отметьте своё имя напротив блока. Ориентир — фреймы в Figma (desktop / `tablet_…` / `m…`).
-
-### 0. Общее / UI-kit (делать первым — от него зависят все)
-| Блок | Файл | Кто |
-|---|---|---|
-| Токены цветов, шрифт, радиусы (сверить с Figma) | `app/styles/index.css` | |
-| Button (primary / outline, hover / active / disabled) | `shared/ui/button` | |
-| Input, Textarea (+ состояние ошибки) | `shared/ui/input`, `shared/ui/textarea` | |
-| Modal, Accordion, Tabs, Pagination, PlayButton | `shared/ui/*` | |
-| Breadcrumbs, PageTitle, Section, Container | `shared/ui/*` | |
-
-### 1. Шапка, футер, меню
-| Блок | Файл | Кто |
-|---|---|---|
-| Header + выпадающее подменю | `widgets/header` | |
-| LanguageSwitcher | `features/language-switcher` | |
-| MobileMenu (tablet — панель, mobile — fullscreen) | `widgets/mobile-menu` | |
-| Footer | `widgets/footer` | |
-| SubscribeSection + SubscribeForm | `widgets/subscribe-section`, `features/subscribe` | |
-| AttentionNotice «Внимание!» | `widgets/attention-notice` | |
-
-### 2. Главная
-| Блок | Файл | Кто |
-|---|---|---|
-| HeroSlider (3 слайда) | `widgets/hero-slider` | |
-| Advantages | `widgets/advantages` | |
-| ProductShowcase (текст + скриншот) | `widgets/product-showcase` | |
-| TariffsSection + TariffCard | `widgets/tariffs-section`, `entities/tariff` | |
-| DocumentsCounter (анимация счёта) | `widgets/documents-counter` | |
-| PartnersSlider + PartnerLogo | `widgets/partners-slider`, `entities/partner` | |
-| ArticlesSection + ArticleCard | `widgets/articles-section`, `entities/article` | |
-| VideoSection | `widgets/video-section` | |
-| PopularQuestions | `widgets/popular-questions` | |
-
-### 3. Блог и статья
-| Блок | Файл | Кто |
-|---|---|---|
-| ArticleCardLarge (главная статья) | `entities/article` | |
-| BlogArticles + ArticlesFilter + пагинация | `widgets/blog-articles`, `features/filter-articles` | |
-| SeoText «Подробнее» | `widgets/seo-text` | |
-| ArticleContent (2 колонки) | `widgets/article-content` | |
-| ShareArticle | `features/share-article` | |
-| ArticleNavigation (пред. / след.) | `widgets/article-navigation` | |
-
-### 4. Видео, FAQ, О нас, Контакты, 404, Поп-ап
-| Блок | Файл | Кто |
-|---|---|---|
-| VideosGrid + VideoCard | `widgets/videos-grid`, `entities/video` | |
-| FaqList + FaqItem | `widgets/faq-list`, `entities/faq` | |
-| AskQuestionForm | `features/ask-question` | |
-| AboutContent | `widgets/about-content` | |
-| ContactsInfo + ContactForm | `widgets/contacts-info`, `features/contact-form` | |
-| ContactsMap | `widgets/contacts-map` | |
-| NotFoundPage (иллюстрация с НЛО) | `pages/not-found` | |
-| DemoModal + состояние «Готово» | `features/order-demo` | |
+| Блок из макета | Файл |
+|---|---|
+| Шапка, выпадающие меню, мобильное меню | `widgets/header` |
+| Футер | `widgets/footer` |
+| Hero-слайдер | `widgets/hero-slider` |
+| Преимущества | `widgets/advantages` |
+| «Комфорт в работе» / «Наш продукт это:» | `widgets/product-showcase` |
+| Тарифы | `widgets/tariffs-section` + `entities/tariff` |
+| Счётчик документов | `widgets/documents-counter` |
+| «Друзья Signy» | `widgets/partners-slider` + `entities/partner` |
+| Карточки статей / «Интересно пишем про» | `entities/article` + `widgets/articles-section` |
+| «Познакомимся в живую?» | `widgets/video-section` |
+| Популярные вопросы | `widgets/popular-questions` + `entities/faq` |
+| Подписка | `widgets/subscribe-section` + `features/subscribe` |
+| Блог: фильтр, сетка, пагинация / SEO-текст | `widgets/blog-articles` / `widgets/seo-text` |
+| Статья: текст, «Поделится», пред./след. | `widgets/article-content`, `features/share-article`, `widgets/article-navigation` |
+| Видеоинструкции | `widgets/videos-grid` + `entities/video` |
+| FAQ | `widgets/faq-list` |
+| «О нас» | `widgets/about-content` |
+| Контакты, карта | `widgets/contacts-info`, `widgets/contacts-map` |
+| Формы Контактов и FAQ | `features/contact-form` |
+| Поп-ап «Демо версия» | `features/order-demo` |
+| 404 | `pages/not-found` |
 
 ---
 

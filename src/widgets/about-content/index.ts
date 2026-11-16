@@ -1,1 +1,1 @@
-export { AboutContent } from './ui/AboutContent'
+export { AboutIntro, AboutOutro } from './ui/AboutContent'

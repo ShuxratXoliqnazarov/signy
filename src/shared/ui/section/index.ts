@@ -1,1 +1,1 @@
-export { Section } from './Section'
+export { Section, type SectionBg } from './Section'

@@ -4,5 +4,4 @@ export type Video = {
   preview: string
   url: string
   date: string
-  duration?: string
 }

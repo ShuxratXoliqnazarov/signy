@@ -7,24 +7,24 @@ type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   ref?: Ref<HTMLTextAreaElement>
 }
 
-// TODO(UI-kit): сверить радиус и высоту с формами FAQ / Контакты
+/** Многострочное поле по макету (формы FAQ и «Контакты»): высота 138px, скругление 6px. */
 export const Textarea = ({ label, error, className, id, ...props }: TextareaProps) => (
   <div className="w-full">
     {label && (
-      <label htmlFor={id} className="mb-1 block text-sm">
+      <label htmlFor={id} className="mb-1.5 block px-5 text-base">
         {label}
       </label>
     )}
     <textarea
       id={id}
       className={cn(
-        'min-h-32 w-full rounded-3xl border border-primary bg-white px-6 py-4 outline-none placeholder:text-gray/60',
-        error && 'border-error',
+        'h-[138px] w-full resize-none rounded-md border border-dark/90 bg-white px-5 py-4 text-base transition-colors outline-none placeholder:text-gray/60 focus:border-primary',
+        error && 'border-error focus:border-error',
         className,
       )}
       aria-invalid={!!error}
       {...props}
     />
-    {error && <p className="mt-1 px-6 text-[10px] text-error">{error}</p>}
+    {error && <p className="mt-1 px-5 text-xs text-error">{error}</p>}
   </div>
 )

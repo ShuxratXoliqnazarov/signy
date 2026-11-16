@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState, type ReactNode } from 'react'
 import { DemoModalContext } from '../model/context'
 import { DemoModal } from './DemoModal'
 
+/** Держит состояние поп-апа «Демо версия» для всего сайта (подключён в MainLayout). */
 export const DemoModalProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false)
   const open = useCallback(() => setIsOpen(true), [])
@@ -11,7 +12,7 @@ export const DemoModalProvider = ({ children }: { children: ReactNode }) => {
   return (
     <DemoModalContext value={value}>
       {children}
-      {isOpen && <DemoModal onClose={close} />}
+      <DemoModal open={isOpen} onClose={close} />
     </DemoModalContext>
   )
 }

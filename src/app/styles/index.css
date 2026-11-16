@@ -42,3 +42,34 @@
 @utility caps {
   @apply text-sm font-medium tracking-[0.19em] uppercase;
 }
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Swiper: свои точки пагинации — обводка синим, активная залита */
+.signy-dots {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.signy-dots .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  margin: 0 !important;
+  border: 1.5px solid var(--color-primary);
+  border-radius: 9999px;
+  background: transparent;
+  opacity: 1;
+  cursor: pointer;
+}
+.signy-dots .swiper-pagination-bullet-active {
+  background: var(--color-primary);
+}

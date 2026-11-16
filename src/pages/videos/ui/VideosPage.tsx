@@ -5,15 +5,15 @@ import { ArticlesSection } from '@/widgets/articles-section'
 import { SubscribeSection } from '@/widgets/subscribe-section'
 import { VideosGrid } from '@/widgets/videos-grid'
 
-/** Страница «Видеоинструкции». */
+/** Страница «Видео инструкции» (фрейм video). */
 export const VideosPage = () => (
   <>
-    <Container className="py-10">
-      <Breadcrumbs items={[{ label: 'Видеоинструкции' }]} />
-      <PageTitle>Видеоинструкции</PageTitle>
+    <Container className="pt-1 xl:pt-6">
+      <Breadcrumbs items={[{ label: 'Видео инструкции' }]} />
+      <PageTitle>Видео инструкции</PageTitle>
       <VideosGrid />
     </Container>
-    <ArticlesSection />
+    <ArticlesSection variant="related" />
     <SubscribeSection />
   </>
 )

@@ -1,12 +1,11 @@
 import { z } from 'zod'
 import { emailSchema, phoneSchema, requiredString } from '@/shared/lib'
 
-// Состав полей — уточнить по макету
+/** Поп-ап «Демо версия»: имя, e-mail, телефон — все обязательные */
 export const orderDemoSchema = z.object({
-  name: requiredString(),
-  phone: phoneSchema,
+  name: requiredString('Введи имя'),
   email: emailSchema,
-  company: z.string().optional(),
+  phone: phoneSchema,
 })
 
 export type OrderDemoFormValues = z.infer<typeof orderDemoSchema>
