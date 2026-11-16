@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router'
 import { LanguageSwitcher } from '@/features/language-switcher'
+import { useLoginModal } from '@/features/login'
 import { useDemoModal } from '@/features/order-demo'
 import { CONTACTS, NAV_ITEMS, ROUTES, toTelHref } from '@/shared/config'
 import { cn } from '@/shared/lib'
@@ -22,6 +23,7 @@ type HeaderProps = {
  */
 export const Header = ({ transparent = false }: HeaderProps) => {
   const { open: openDemo } = useDemoModal()
+  const { open: openLogin } = useLoginModal()
   const [menuOpen, setMenuOpen] = useState(false)
   const [mainPhone, ...otherPhones] = CONTACTS.phones
 
@@ -93,7 +95,7 @@ export const Header = ({ transparent = false }: HeaderProps) => {
         </nav>
 
         <div className="hidden items-center gap-6 xl:flex">
-          <Button variant="outline" className="w-[110px] px-0">
+          <Button variant="outline" onClick={openLogin} className="w-[110px] px-0">
             Вход
           </Button>
           <Button onClick={openDemo} className="w-[189px] px-0">
@@ -119,6 +121,10 @@ export const Header = ({ transparent = false }: HeaderProps) => {
         onRegister={() => {
           setMenuOpen(false)
           openDemo()
+        }}
+        onLogin={() => {
+          setMenuOpen(false)
+          openLogin()
         }}
       />
     </header>

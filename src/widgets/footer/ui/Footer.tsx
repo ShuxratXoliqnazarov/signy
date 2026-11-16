@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import { useLoginModal } from '@/features/login'
 import { useDemoModal } from '@/features/order-demo'
 import { CONTACTS, ROUTES, TARIFFS_ANCHOR, toTelHref } from '@/shared/config'
 import { Container } from '@/shared/ui/container'
@@ -20,6 +21,7 @@ const addressLines = CONTACTS.addressLines.map((line) => (
  */
 export const Footer = () => {
   const { open: openDemo } = useDemoModal()
+  const { open: openLogin } = useLoginModal()
   const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
   const nav = {
@@ -34,7 +36,7 @@ export const Footer = () => {
       </Link>
     ),
     login: (
-      <button type="button" className={`${linkClass} cursor-pointer text-left`}>
+      <button type="button" onClick={openLogin} className={`${linkClass} cursor-pointer text-left`}>
         Вход
       </button>
     ),

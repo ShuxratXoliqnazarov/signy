@@ -12,6 +12,7 @@ type MobileMenuProps = {
   open: boolean
   onClose: () => void
   onRegister: () => void
+  onLogin: () => void
 }
 
 /**
@@ -19,7 +20,7 @@ type MobileMenuProps = {
  * на планшете — панель справа поверх затемнённой страницы, на телефоне — на весь экран.
  * Телефоны и «Про нас» раскрываются по тапу.
  */
-export const MobileMenu = ({ open, onClose, onRegister }: MobileMenuProps) => {
+export const MobileMenu = ({ open, onClose, onRegister, onLogin }: MobileMenuProps) => {
   const [phonesOpen, setPhonesOpen] = useState(false)
   const [expanded, setExpanded] = useState<string | null>(null)
   const [mainPhone, ...otherPhones] = CONTACTS.phones
@@ -95,7 +96,7 @@ export const MobileMenu = ({ open, onClose, onRegister }: MobileMenuProps) => {
         {divider}
 
         <div className="flex flex-col gap-4 md:flex-row md:gap-11">
-          <Button variant="outline" fullWidth className="md:w-[110px]">
+          <Button variant="outline" fullWidth className="md:w-[110px]" onClick={onLogin}>
             Вход
           </Button>
           <Button fullWidth className="md:w-[189px]" onClick={onRegister}>

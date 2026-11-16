@@ -188,6 +188,7 @@ import { Header } from '../../widgets/header'        // ❌
 | Контакты, карта | `widgets/contacts-info`, `widgets/contacts-map` |
 | Формы Контактов и FAQ | `features/contact-form` |
 | Поп-ап «Демо версия» | `features/order-demo` |
+| Поп-ап «Вход» (в макете нет, сделан в стиле демо) | `features/login` |
 | 404 | `pages/not-found` |
 
 ---
